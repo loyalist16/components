@@ -3,7 +3,7 @@
 # @Author : loyalist
 # @Email : lzl0118@foxmail.com
 # @File : dial.py
-# @Desc : 定时拨号
+# @Desc : 定时拨号, 在服务器上运行
 
 import re
 import subprocess
@@ -15,7 +15,7 @@ from requests.exceptions import ConnectionError, ReadTimeout
 # 拨号网卡
 ADSL_IFNAME = 'ppp0'
 # 测试 URL
-TEST_URL = 'http://www.baidu.com'
+TEST_URL = 'https://www.baidu.com'
 # 测试超时时间
 TEST_TIMEOUT = 20
 # 拨号间隔
@@ -111,3 +111,6 @@ class Sender():
 def run():
     sender = Sender()
     sender.adsl()
+
+if __name__ == '__main__':
+    run()
