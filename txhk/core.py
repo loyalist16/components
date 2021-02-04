@@ -215,7 +215,7 @@ class Txhk:
             'ans': ans,  # '320,107;'
             'collect': collect,
             'vsig': '', 'websig': '', 'subcapclass': '',
-            'tlg': '3736',
+            'tlg': len(collect),
             'eks': eks,
             'nonce': nonce, 'vlg': '0_0_1',
             'vData': vData
