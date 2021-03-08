@@ -13,3 +13,9 @@ function array2string(bytesArray) {
         result += (String.fromCharCode(buffer[i]))
     }
 }
+
+// JAVA常用的加密类
+function encrypt(val) {
+    var md = Java.use('java.security.MessageDigest');
+
+}

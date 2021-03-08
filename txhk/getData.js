@@ -24,6 +24,20 @@ v = [
     }
 ]
 
+var v = [
+    {
+        get: function () {
+            return [0];
+        }
+    },
+    {
+        get: function () {
+            return ["j8+xC3jHRt1Y7rhrfVwIx3JCJYOGXz3Y4CL171XaqdjbIS2PhM…ODSbudB0hvbOadDBCyjQN7UnE3VVtvjLBuf5ZuWlwZFbEZx0c", null, 2];
+        },
+
+    }
+]
+
 function assist1(n, t) {
     if (!n)
         return "";
