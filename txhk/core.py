@@ -10,6 +10,8 @@ import re
 import time
 import warnings
 from urllib.parse import quote
+from txhk.track import get_left_offset
+from PIL import Image
 
 warnings.filterwarnings('ignore')
 
@@ -64,8 +66,8 @@ class Txhk:
         验证码显示页面, 获取验证码id
         :param str sess: initCaptcha 生成
         :param str sid: initCaptcha 生成
-        :return: 验证码id, 请求url, nonce
-        :rtype: (str, str, str)
+        :return: 验证码id, 请求url, nonce, tdc_url
+        :rtype: (str, str, str, str)
         """
         self.rnd = '535739'
         self.createIframeStart = f'{int(time.time() * 1000)}'
@@ -100,8 +102,8 @@ class Txhk:
         response = requests.get(url, headers=headers, params=params, verify=False)
         img_id = re.search('image=(\d+)?', response.text).group(1)
         nonce = re.search('nonce:"(.*?)"', response.text).group(1)
-        eks_url = re.search('dcFileName:"(.*?)"', response.text).group(1)
-        return img_id, response.request.url, nonce, eks_url
+        tdc_url = re.search('dcFileName:"(.*?)"', response.text).group(1)
+        return img_id, response.request.url, nonce, tdc_url
 
     def resetSess(self, sess, sid, show_url):
         """
@@ -250,6 +252,16 @@ if __name__ == '__main__':
     print(init_obj, type(init_obj))
     sess = init_obj['sess']
     sid = init_obj['sid']
-    r = tx.showCaptcha(sess, sid)
+    img_id, location_href, nonce, tdc_url = tx.showCaptcha(sess, sid)
+    # eks = tx.get_eks(eks_url=tdc_url, show_url=location_href)
+    # 重置sess获取缺口初始位置
+    r = tx.resetSess(sess, sid, location_href)
     print(r)
-    eks = tx.get_eks(r[3], r[1])
+    sess = r.get('sess')
+    # 下载图片并获取缺口左边位置
+    tx.loadImage(sess, sid, location_href)
+    img1 = Image.open('topic7_0.png').convert('RGBA')
+    img2 = Image.open('topic7_1.png').convert('RGBA')
+    left_offset = get_left_offset(img1, img2)
+    ans = f"{left_offset - 24},{r.get('inity')};" # 24是小图片左边距
+    print(ans)

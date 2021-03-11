@@ -12,8 +12,8 @@ var require = function (v) {
 }
 
 const dom = new JSDOM('', {
-  url: "https://t.captcha.qq.com/cap_union_new_show?rand=1519713624347",
-  referrer: "http://www.glidedsky.com/level/web/crawler-captcha-1?page=2",
+  url: "https://t.captcha.qq.com/cap_union_new_show?aid=2005597573&protocol=https&accver=1&showtype=popup&ua=TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzg5LjAuNDM4OS44MiBTYWZhcmkvNTM3LjM2&noheader=1&fb=1&enableDarkMode=0&grayscale=1&clientype=2&sess=s0zi0TnS1j6avPOT4DQ80ox65U-oT9p3mUBKtphGR6_cCFfzKSHS_gQVBhBY9IROiQYWbBMyajC-kiZlYx2Zk7abICf5aeYgn4UP__QhRRDOV_QeAzGwNhuf14rKGw1J4EshWTHTFDBNRLRAQ2Up6D-6btr8MFghR4iw3PJzixCn5ACv2WBM2namhc_Zzu6mL7-sXN1PsAB73LvxacqnL_AQ**&fwidth=0&sid=6775604034645868544&wxLang=&tcScale=1&uid=&cap_cd=&rnd=958640&prehandleLoadTime=102&createIframeStart=1615429887716&subsid=2",
+  referrer: "http://www.glidedsky.com/",
   contentType: "text/html",
   includeNodeLocations: true,
   storageQuota: 10000000
@@ -26,7 +26,8 @@ window.addEventListener = function (event, callback, flag) {
   dom.window.addEventListener(event, callback, flag);
 }
 window.location = dom.window.location;
-window.WebGLRenderingContext = function () {}
+window.WebGLRenderingContext = function () {
+}
 WebGLRenderingContext.toString = function () {
   return "function WebGLRenderingContext() { [native code] }";
 }
@@ -42,8 +43,13 @@ Object.defineProperties(navigator, {
   platform: {value: "Win32"},
   languages: {value: ["zh-CN", "zh-TW", "zh", "en-US", "en"]},
   userAgent: {value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"},
-  plugins: {value: [{name: "Chrome PDF Plugin"}, {name: "Chrome PDF Plugin"}, {name: "Chrome PDF Viewer"}]}
+  plugins: {value: [{name: "Chrome PDF Plugin"}, {name: "Chrome PDF Plugin"}, {name: "Chrome PDF Viewer"}]},
 })
+navigator.getBattery = function () {
+  let num = 0.6;
+  return new Promise((resolve, reject) => {
+  })
+}
 // plugins: [{name: "Chrome PDF Plugin"}, {name: "Chrome PDF Plugin"}, {name: "Chrome PDF Viewer"}],
 window.innerWidth = 360;
 window.innerHeight = 360;
@@ -677,7 +683,7 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
 
       n.exports = {
         on: function () {
-          u(window, c.ELXfj(vcWc, c.kgtAG(c.HxsvT(c.HxsvT(p + c.PevAx + l, "-"), g), "2")), _0x3d6344)
+          u(window, 'deviceorientation', _0x3d6344)
         },
         get: function () {
           return [JSON.stringify(o.slice()), null, 1]
@@ -842,10 +848,11 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
         }
       }
         , u = r(r(51))
-        , e = 254;
-      c.ZEgRh(r, c.IOGTA(r, 46))[vcWc(c.JiiTP(c.JiiTP(T, I), A) + "P")](35),
+        // , e = 254; 替换电源电量
+        , e = 200;
+      r(r(46))['Pjkhp'](35),
         u.getStatus(function (n) {
-          n ? (e = Math.round(c.TMGYu(100, n.level)),
+          n ? (e = Math.round(100 * n.level),
           n.charging && (e += 100)) : e = 255
         }),
         n.exports = {
@@ -1063,7 +1070,7 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
           ,
           t = i.Jgvfb(navigator.platform, vcWc(i.RvjIy(i.WFGri(Y + "V[", N), V))) || i.XCnqd(navigator.platform, i.QJpDQ(vcWc, i.WFGri(M + "SXN", F) + "]"))
           ,
-          r = i.XCnqd(navigator.platform, i.TQsyT(vcWc, i.WFGri(i.tLuVK("k", f), "L") + z)) || i.XCnqd(navigator.platform, vcWc("icwyffY")) || navigator.platform == i.iRMAJ(vcWc, i.tLuVK(i.tLuVK(i.tLuVK(v, i.PRwpg), E), "7")) || i.XCnqd(navigator.platform, i.wMtlT(vcWc, i.xLTai(i.xLTai(Q, a), q) + U));
+          r = i.XCnqd(navigator.userAgent, i.TQsyT(vcWc, i.WFGri(i.tLuVK("k", f), "L") + z)) || i.XCnqd(navigator.platform, vcWc("icwyffY")) || navigator.platform == i.iRMAJ(vcWc, i.tLuVK(i.tLuVK(i.tLuVK(v, i.PRwpg), E), "7")) || i.XCnqd(navigator.platform, i.wMtlT(vcWc, i.xLTai(i.xLTai(Q, a), q) + U));
         if (r)
           return vcWc(i.ZMHsy);
         if (navigator.platform == i.MjTvB(vcWc, i.QTOXM) && !t && !r)
@@ -1747,9 +1754,9 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
               var n = 0;
               try {
                 if (document.all)
-                  new ActiveXObject(vcWc(pn.zfUrz("0K`g[coYn]>dYk`}K`g[coYn]>dY" + Ht, Ct))) && (n = 1);
+                  new ActiveXObject('ShockwaveFlash.ShockwaveFlash') && (n = 1);
                 else if (navigator.plugins && pn.rabfI(0, navigator.plugins.length)) {
-                  navigator.plugins[vcWc(pn.MoEgq(pn.kGrfG("fl*1|-9z8", Rt), pn.ntgXH))] && (n = 1)
+                  navigator.plugins['Shockwave Flash'] && (n = 1)
                 }
               } catch (t) {
               }
@@ -2054,7 +2061,7 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
                 }
                 ,
                 J[pn.kdBhf(vcWc, pn.uNQaF)] = function () {
-                  return !(!c.iLcxt(vcWc(c.VGaUk(c.VGaUk(l + g, $) + Jn + Mt, "8")), document) || c.yLwYz(vcWc, c.VGaUk(Bn + d, "|")) in window || !document.applets || !document.applets.toString || document.applets.toString() != c.yLwYz(vcWc, c.NPTXS(h + c.HQeBK + Ft, nn) + zt + tn))
+                  return !(!c.iLcxt('onvisibilitychange', document) || 'showModalDialog' in window || !document.applets || !document.applets.toString || document.applets.toString() != c.yLwYz(vcWc, c.NPTXS(h + c.HQeBK + Ft, nn) + zt + tn))
                 }
                 ,
                 J[vcWc("hHJ")] = function () {
@@ -2063,7 +2070,7 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
                 }
                 ,
                 J[pn.kdBhf(vcWc, pn.mPRsd)] = function () {
-                  return c.vCEyU(vcWc, c.sfdKl(c.sfdKl("<c", rn), "^")) in window[c.napoI(vcWc, c.sfdKl(b + Sn, Gn) + On)] && window[c.UhQkh(vcWc, cn + un + en + Qt)][vcWc(c.huWbh(on, c.jfyyY) + kn + Kn)]
+                  return 'webdriver' in window['navigator'] && window[c.UhQkh(vcWc, cn + un + en + Qt)][vcWc(c.huWbh(on, c.jfyyY) + kn + Kn)]
                 }
                 ,
                 J[pn.kdBhf(vcWc, "4|)")] = function () {
@@ -2072,7 +2079,7 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
                 ,
                 J[pn.ZssGS(vcWc, pn.XuuOY)] = function () {
                   try {
-                    var n = Object.getOwnPropertyDescriptor(navigator, vcWc(P.LHSkX(P.KAoYE(P.bAnDo + an + Nn, Lt) + H, sn))).get;
+                    var n = Object.getOwnPropertyDescriptor(navigator, 'webdriver').get;
                     return P.bubtp(typeof n, P.mFvsg(vcWc, P.KAoYE(P.oTKiJ("IETM", Dt), C)))
                   } catch (t) {
                     return !1
@@ -3016,7 +3023,7 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
 
             n.exports = {
               on: function () {
-                c.alIUJ(u, document, c.hrqNL(vcWc, c.bGTDF(zn + uc, "@")), _0x3a1aef)
+                c.alIUJ(u, document, 'keyup', _0x3a1aef)
               },
               get: function () {
                 return [JSON.stringify(f.slice()), i, 1]
@@ -3095,7 +3102,7 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
         },
           function (n, t, r) {
             var c = (0,
-              pn.qKHfL(r, r(70))[1])(vcWc("+mq`w"));
+              pn.qKHfL(r, r(70))[1])('ptcz');
             n.exports = {
               get: function () {
                 return c ? [pn.pHVtX(pn.RqsSS(vcWc, '."'), pn.ndZRR("", c).replace(/"/g, vcWc('>F"'))) + pn.RqsSS(vcWc, '1"'), null, 1] : [null]
@@ -3191,7 +3198,7 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
       r(r(46))[c.OXUpU(vcWc, c.KHlvH)](19),
         n.exports = {
           on: function () {
-            e(document, vcWc(c.qjreu), _0x2e51da)
+            e(document, 'click', _0x2e51da)
           },
           get: function () {
             return [JSON.stringify(v.slice()), null, 1]
@@ -3375,29 +3382,29 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
                 case "0":
                   if (r)
                     for (r = 24 - r,
-                           e = 0; i.BsvIQ(e, r); e++)
-                      u += i.rukYG(vcWc, "E ");
+                           e = 0; e < r; e++)
+                      u += ' ';
                   continue;
                 case "1":
-                  return [i.lCeAj(f, u), null, 2];
+                  return [f(u), null, 2];
                 case "2":
-                  var r = i.cxVNI((u += i.nmPDK(vcWc, "+Z"))[i.nmPDK(vcWc, i.qMmCI(Fn, zn) + "|" + En)], 24);
+                  var r = (u += ']')['length'] % 24;
                   continue;
                 case "3":
-                  u = u[vcWc(Mn + i.dkkpk)](0, u[vcWc(i.hNUFX)] - 1);
+                  u = u['substr'](0, u['length'] - 1);
                   continue;
                 case "4":
                   for (var c = function (n) {
                     for (var t, r = [], c = 0; o.fbhNA(c, n.length); c++) {
                       var u = n[c];
-                      0 == c ? r.push([u.x, u.y, u.t]) : r.push([u.x - t.x, o.Ebepm(u.y, t.y), o.yJZzv(Number, o.wHctU(u.t, t.t).toFixed(3))]),
+                      0 == c ? r.push([u.x, u.y, u.t]) : r.push([u.x - t.x, (u.y - t.y), Number((u.t - t.t).toFixed(3))]),
                         t = u
                     }
                     return r.push([1, 1, 12]),
                       r
-                  }(v), u = i.nmPDK(vcWc, "O4"), e = 0; i.BsvIQ(e, c[vcWc(i.qMmCI(">V", Vn) + "^R")]); e++)
-                    u = i.qMmCI(i.CLuXJ(i.CLuXJ(i.DNeMd(i.DNeMd(u, vcWc("N5")), c[e][0]), i.qYbGr(vcWc, "gD")) + c[e][1], vcWc("o<")), c[e][2]) + i.qYbGr(vcWc, "*["),
-                      u += vcWc("r9");
+                  }(v), u = '[', e = 0; i.BsvIQ(e, c['length']); e++)
+                    u = u + '[' + c[e][0] + ',' + c[e][1] + ',' + c[e][2] + ']',
+                      u += ',';
                   continue;
                 case "5":
                   var o = {
@@ -4390,7 +4397,7 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
                     for (var n, t = W.vnYoB(vcWc, W.aTsWz(pc, m) + '"(' + b), r = "", c = !0, u = 0; W.sOHbB(u, l.length); u++) {
                       var e = l[u];
                       if (e) {
-                        var o = (n = e[vcWc(W.KlBPG)]())[0]
+                        var o = (n = e['get']())[0]
                           , i = n[1]
                           , f = n[2]
                           , v = typeof o;
@@ -4571,7 +4578,7 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
         }
       }
         , c = document.createElement('div');
-      n.exports = 'ontouchstart' in c ||'ontouchstart' in window
+      n.exports = 'ontouchstart' in c || 'ontouchstart' in window
     }
     , 61, function (n, t, r) {
       var c, W = {
@@ -5259,7 +5266,7 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
           case "1":
             n.exports = {
               on: function () {
-                o(window, vcWc(i.xMope(qu, "aWh") + Uu), function () {
+                o(window, 'resize', function () {
                   f++
                 })
               },
@@ -6047,12 +6054,14 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
             case "2":
               var u = navigator.getBattery || navigator.battery || navigator.mozBattery
                 , e = null
-                , o = function () {
+                , o = function (v) {
+                console.log('这是o函数: ', v);
               }
                 , i = vcWc(v.NhfAr(v.GaTDu, le));
               continue;
             case "3":
               n.getStatus = function (n) {
+                // 参数n是个函数
                 try {
                   e === i ? c.NXtPn(n, null, e) : e ? n(e) : o = n
                 } catch (t) {
@@ -6062,12 +6071,13 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
               continue;
             case "4":
               try {
-                v.YkDug(u, Function) ? u.call(navigator).then(function (n) {
+                u instanceof Function ? u.call(navigator).then(function (n) {
                   v.pbsIG(o, e = n)
                 }, function () {
                   e = i
                 }) : e = u || i
               } catch (f) {
+                console.log(f);
               }
               continue
           }
@@ -6137,10 +6147,10 @@ document.dispatchEvent(md);
 var mu = new dom.window.Event('mouseup')
 mu.pageX = 277;
 mu.pageY = 317;
+var cl = new dom.window.Event('click')
+cl.pageX = 277;
+cl.pageY = 317;
+document.dispatchEvent(cl);
 document.dispatchEvent(mu);
 
-// document.onmousedown(start_cord);
-// // document.onclick(final_cord);
-// document.ontouchend(final_cord);
-// document.ontouchend(final_cord);
 console.log(window.TDC.getData(!0));

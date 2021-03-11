@@ -1,44 +1,43 @@
-// var v = [
-//     {
-//         get: function () {
-//             return [200];
-//         }
-//     },
-//     {
-//         get: function () {
-//             return ["1920-1080-1040-24-*-*-|-*"];
-//         },
+// const battery = require('battery');
+// console.log(battery);
+// (async () => {
+//   const {level, charging} = await battery();
 //
-//     },
-//     {
-//         get: function () {
-//             var n = 360 || 360 || 360;
-//             var t = 360 || 360 || 350;
-//             return ["[360,360]", null, 1];
-//         }
-//     },
-//     {
-//         get: function () {
-//             var e = document.referrer + "?rand=" + (364654 + 458735732678 + 1054255889002); // 458735732678是变化的Lr
-//             return [e];
-//         }
-//     },
-//     {
-//         _0x2543f9: function (n) {
-//             e = n.wheelDelta ? n.wheelDelta / 120 : -(n.detail || 0) / 3;
-//         },
-//         on: function () {
-//             function u(n, t, r) {
-//                 document.addEventListener ? n.addEventListener(t, r, !0) : document.attachEvent ? n.attachEvent(icJc(c.vHUvN) + t, r) : n[c.NNZQa(icJc(c.UeVAX), t)] = r
-//             };
-//             var n = document.mozHidden == undefined ? "mousewheel" : "DOMMouseScroll";
-//             u(document, n, _0x2543f9);
-//         },
-//         get: function () {
-//             return [0];
-//         }
-//     }
-// ]
+//   console.log(level);
+//   //=> 0.8
+//
+//   console.log(charging);
+//   //=> true
+// })();
 
-var a = require('D:\\Files\\PycharmProjects\\LzlProject\\components\\txhk\\tdc2');
-console.log(a);
+var navigator = {};
+
+navigator.getBattery = function () {
+  let num = 0.6;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      num > 0.5 ? resolve({level: 1, charging: true}) : reject(num);
+    }, 1000);
+  })
+};
+
+var u = navigator.getBattery
+
+function o(v) {
+  console.log('这是o函数: ', v);
+}
+var e = 0, i='lalala';
+u.call(navigator).then(
+  function (n) {
+    o(e = n)
+  },
+  function () {
+    e = i
+  })
+
+console.log(e)
+// u.call(navigator).then(val => {
+//   console.info(`Status switches to fulfilled, and the value is ${val.level}`);
+// }, val => {
+//   console.info(`Status switches to reject, and the value is ${val}`);
+// })
