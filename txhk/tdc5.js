@@ -2,7 +2,7 @@ const {JSDOM} = require('jsdom');
 
 // 重写require库, 过fs检测
 var ori_require = require;
-var require = function (v) {
+require = function (v) {
   console.log("重写require", v);
   if (v === 'fs') {
     return false;
@@ -18,7 +18,8 @@ const dom = new JSDOM('', {
   includeNodeLocations: true,
   storageQuota: 10000000
 })
-
+// 加载
+dom.window.dispatchEvent(new dom.window.Event('load'));
 // window设为全局
 var window = global;
 delete window.process;
@@ -32,9 +33,7 @@ WebGLRenderingContext.toString = function () {
   return "function WebGLRenderingContext() { [native code] }";
 }
 
-
 document = dom.window.document;
-
 
 // navigator
 navigator = dom.window.navigator;
@@ -111,6 +110,62 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
   }
 }
 
+// 监听事件
+var md = new dom.window.Event('mousedown');
+var mu = new dom.window.Event('mouseup');
+var cl = new dom.window.Event('click');
+var mv = new dom.window.Event('mousemove');
+
+// 轨迹函数
+function track(start_pos, end_pos) {
+  /* start_pos 点击的坐标
+  * end_pos 结束的坐标
+  * */
+  const s_time = new Date().getTime();
+  const distance = end_pos[0];
+  let click_pos = start_pos[0];
+  let a = 0.00035, // 加速度
+    current = 0, //当前位移
+    t = 0.02, //计算间隔
+    v = 0, //初速度
+    mid = distance * 4 / 5; // 减速阈值
+  while (current < distance) {
+    v0 = v; //初速度v0
+    v = v0 + a * t; //当前速度
+    move = v0 * t + 1 / 2 * a * t * t; // 移动距离
+    // console.log("每次移动: ", move)
+    if (parseInt(move) > 0) {
+      current += parseInt(move); //当前位移
+      if (current < mid) {
+        if (current % (parseInt(Math.random() * 5)) == 0) {
+          mv.pageX = current;
+          mv.pageY = start_pos[1];
+          document.dispatchEvent(mv);
+        }
+        if (current >= click_pos) {
+          md.pageX = current;
+          md.pageY = start_pos[1];
+          document.dispatchEvent(md);
+          click_pos += 9999;
+        }
+      } else {
+        mv.pageX = current;
+        mv.pageY = start_pos[1];
+        document.dispatchEvent(mv);
+        if (current == end_pos[0]) {
+          mu.pageX = cl.pageX = current;
+          mu.pageY = cl.pageY = start_pos[1];
+          document.dispatchEvent(mv);
+          document.dispatchEvent(cl);
+        }
+      }
+    }
+  }
+  const e_time = new Date().getTime();
+  console.log('花费时间: ', e_time - s_time);
+}
+
+// tdc文件, 动态传入的
 !function () {
   var f = "rC"
     , v = "t"
@@ -834,19 +889,19 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
     }
     , function (n, t, r) {
       var c = {
-        TMGYu: function (n, t) {
-          return n * t
-        },
-        ZEgRh: function (n, t) {
-          return n(t)
-        },
-        IOGTA: function (n, t) {
-          return n(t)
-        },
-        JiiTP: function (n, t) {
-          return n + t
+          TMGYu: function (n, t) {
+            return n * t
+          },
+          ZEgRh: function (n, t) {
+            return n(t)
+          },
+          IOGTA: function (n, t) {
+            return n(t)
+          },
+          JiiTP: function (n, t) {
+            return n + t
+          }
         }
-      }
         , u = r(r(51))
         // , e = 254; 替换电源电量
         , e = 200;
@@ -6134,23 +6189,12 @@ dom.window.HTMLCanvasElement.prototype.getContext = function (v) {
     }
   ])
 }();
+// 以上全属于tdc
 
-console.log(document);
-// 加载
-dom.window.dispatchEvent(new dom.window.Event('load'));
-//起点坐标
-var md = new dom.window.Event('mousedown')
-md.pageX = 60;
-md.pageY = 289;
-document.dispatchEvent(md);
-//终点坐标
-var mu = new dom.window.Event('mouseup')
-mu.pageX = 277;
-mu.pageY = 317;
-var cl = new dom.window.Event('click')
-cl.pageX = 277;
-cl.pageY = 317;
-document.dispatchEvent(cl);
-document.dispatchEvent(mu);
-
-console.log(window.TDC.getData(!0));
+function run(start_pos, end_pos) {
+  track(start_pos, end_pos);
+  collect = window.TDC.getData(!0);
+  console.log(collect);
+  return collect;
+}
+run([60, 285], [300, 285]);

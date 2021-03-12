@@ -2,8 +2,8 @@
 # @Time : 2021/3/11 16:22
 # @Author : loyalist
 # @Email : lzl0118@foxmail.com
-# @File : track.py
-# @Desc : 获取到缺口所在位置, 伪造轨迹
+# @File : gap.py
+# @Desc : 获取到缺口所在位置的左边距
 
 from PIL import Image
 
@@ -38,6 +38,7 @@ def is_pixel_equal(img1_list, img2_list, x, y):
     else:
         return False
 
+
 def get_left_offset(img1, img2):
     """
     获取图片左边偏移量
@@ -52,11 +53,15 @@ def get_left_offset(img1, img2):
     for x in range(left, img1.size[0]):
         for y in range(top, img1.size[1]):
             if not is_pixel_equal(img1_list, img2_list, x, y):
-                left = x
-                return left
+                # 判断右边是否为白边
+                right_pixel = img2.load()[x + 1, y]
+                if right_pixel[0] > 200 and right_pixel[1] > 200 and right_pixel[2] > 200:
+                    left = x + 1
+                    return left
+
 
 if __name__ == '__main__':
-    img1 = Image.open('topic7_0.png').convert('RGBA')
-    img2 = Image.open('topic7_1.png').convert('RGBA')
+    img1 = Image.open('full_img/penguin.png').convert('RGBA')
+    img2 = Image.open('cap_union_new_getcapbysig (2).jpg').convert('RGBA')
     left = get_left_offset(img1, img2)
     print(left)
